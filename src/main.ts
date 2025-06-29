@@ -113,7 +113,7 @@ async function readLoop() {
 
 async function disconnect() {
   // Update the UI to give feedback
-  updateUiForConnection('disconnecting');
+  updateUiForConnection(false);
   term.writeln('\r\n[SYSTEM] Port released. Reloading page...');
 
   // Best-effort attempt to close the port. We don't wait for it.
