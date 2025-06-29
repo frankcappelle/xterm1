@@ -20,6 +20,8 @@ const fitAddon = new FitAddon();
 const term = new Terminal({
   cursorBlink: true,
   convertEol: true,
+  fontFamily: 'monospace',
+  fontSize: 12,
 });
 term.loadAddon(fitAddon);
 term.open(terminalContainer);
@@ -54,9 +56,10 @@ window.addEventListener('resize', resizeHandler);
 
 async function connect() {
   if ('serial' in navigator) {
+
     try {
       port = await navigator.serial.requestPort();
-      await port.open({ baudRate: 9600 });
+      await port.open({ baudRate: 115200 });
 
       term.writeln('[SYSTEM] Serial port connected.');
       term.focus();
@@ -109,30 +112,18 @@ async function readLoop() {
 }
 
 async function disconnect() {
-  term.writeln('\r\n[SYSTEM] Disconnecting...');
-  termDataListener?.dispose();
-  termDataListener = null;
+  // Update the UI to give feedback
+  updateUiForConnection('disconnecting');
+  term.writeln('\r\n[SYSTEM] Port released. Reloading page...');
 
-  try {
-    if (reader) await reader.cancel();
-    if (writer) await writer.close();
-  } catch (error) {
-    console.error("Error closing streams:", error);
-  } finally {
-    reader = null;
-    writer = null;
-  }
-  
-  try {
-    await port?.close();
-  } catch (error) {
-    console.error("Error closing port:", error);
-  } finally {
-    port = null;
-  }
-  
-  term.writeln('[SYSTEM] Disconnected.');
-  updateUiForConnection(false);
+  // Best-effort attempt to close the port. We don't wait for it.
+  // The page reload is what will truly release the OS lock.
+  port?.close().catch(() => {}); // Ignore errors
+
+  // Reload the page after a very short delay
+  setTimeout(() => {
+    location.reload();
+  }, 500); // 0.5-second delay
 }
 
 function updateUiForConnection(isConnected: boolean) {
