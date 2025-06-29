@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + TS Serial Terminal</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f9;
+    }
+    #terminal-container {
+      width: 50%;
+      height: 50vh;
+      margin-top: 15px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Xterm.js Web Serial Terminal (npm + TypeScript)</h1>
+  <p>Click "Connect" and then type directly into the terminal below.</p>
+  <button id="connect-button">Connect to Serial Device</button>
+  
+  <div id="terminal-container"></div>
+  
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
