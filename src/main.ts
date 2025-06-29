@@ -1,4 +1,4 @@
-import { Terminal, ITerminalAddon, IDisposable } from 'xterm';
+import { Terminal, type IDisposable } from 'xterm';
 import { FitAddon } from 'xterm-addon-fit';
 // This import injects the necessary CSS into the page.
 import 'xterm/css/xterm.css';
