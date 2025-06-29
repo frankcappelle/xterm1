@@ -32,7 +32,7 @@ term.focus();
 let port: SerialPort | null = null;
 let reader: ReadableStreamDefaultReader<string> | null = null;
 let writer: WritableStreamDefaultWriter<string> | null = null;
-//let termDataListener: NullableDisposable = null;
+let termDataListener: NullableDisposable = null;
 
 // --- Main Application Logic ---
 connectButton.addEventListener('click', async () => {
