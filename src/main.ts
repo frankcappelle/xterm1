@@ -32,6 +32,7 @@ term.focus();
 let port: SerialPort | null = null;
 let reader: ReadableStreamDefaultReader<string> | null = null;
 let writer: WritableStreamDefaultWriter<string> | null = null;
+// Listener for terminal data, initially null
 let termDataListener: NullableDisposable = null;
 
 // --- Main Application Logic ---
